@@ -1,11 +1,13 @@
 import React from 'react';
 import {StyleSheet,View,Text,Image,ImageBackground,Dimensions,TouchableOpacity} from "react-native";
-import icon from './resources/SvgIcons/icon';
+import Icon from './resources/SvgIcons/Icon';
 import GeneralStatusBarColor from "../components/GeneralStatusBarColor";
 import bg from './resources/assets/bg.png';
 import smileys1 from './resources/assets/smileys1_1x.png';
 import smileys2 from './resources/assets/smileys2_1x.png';
 import {firebaseConfig} from './firebase/FirebaseConfig';
+import * as firebase from 'firebase'; 
+import SplashScreen from 'react-native-splash-screen';
 
 const {height, width} = Dimensions.get('window');
 const MonthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
@@ -17,13 +19,16 @@ const MonthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July
      const [advice, setAdvice] = React.useState (Advice[1])
      const [month, setMonth] = React.useState (MonthName[0])
      const [currentPrice, setCurrentPrice] = React.useState(0)
-     React.useEffect(()=> setTimeout(()=> {SplashScreen.hide()}, 1000 ) )
+     //React.useEffect(()=> setTimeout(()=> {SplashScreen.hide()}, 1000 ) )
      React.useEffect(()=> {
          if (!firebase.apps.length)
-         {firebase.initializeApp(firebaseConfig)}
-         firebase.database().ref('/').once('value').then(function(snapshot){
-             console.log(snapshot.val())
-         })
+         {
+             firebase.initializeApp(firebaseConfig)
+             firebase.database().ref('/').once('value').then(function(snapshot){
+                console.log(snapshot.val())
+            })
+        }
+         
     
     }, [])
     React.useEffect(()=> {
