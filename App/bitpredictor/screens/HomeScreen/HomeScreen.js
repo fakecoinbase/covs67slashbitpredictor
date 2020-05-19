@@ -37,7 +37,7 @@ const MonthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July
    const getBitCoinPrice= async() => {
        var price = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json')
        price = await price.json()
-       setCurrentPrice(price.bpi.USD.rate);
+       setCurrentPrice(price.bpi.GBP.rate);
 
    }
    React.useEffect(()=> {
@@ -68,7 +68,7 @@ return (
             </View>
             <View style = {{...styles.row, flexDirection:'column'}}>
             <Text style={styles.title}> Current Price </Text>
-            <Text style={styles.priceTxt}>{'~$'+currentPrice}</Text>
+            <Text style={styles.priceTxt}>{'~£'+currentPrice}</Text>
             </View>
             <View style = {styles.footer}>
                 <Image source={advice.symbol} style={styles.smileysStyles} />
@@ -97,15 +97,15 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize:width*0.06,
-        fontFamily: 'Montserrat-Bold',
+        
         
     },
     label:{
         fontSize:width*0.04,
-        fontFamily: 'Montserrat-Medium',
+        
     },
     priceTxt:{
-        fontSize:width*0.03,fontFamily: 'Montserrat-Medium'
+        fontSize:width*0.03
     },
     footer: {
         position: "absolute",
@@ -122,10 +122,10 @@ adviceTxt:{
     fontSize:width*0.06,
     color:'white',
     marginTop:height*0.02,
-    fontFamily: 'Montserrat-Bold',
+    
 },
 monthTxt:{fontSize:width*0.065,
-    fontFamily: 'Montserrat-Bold',
+   
     color: '#4f0c9c',
     paddingVertical: 5,
     paddingHorizontal: width*0.08
