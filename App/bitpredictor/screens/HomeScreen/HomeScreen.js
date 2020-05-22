@@ -15,6 +15,7 @@ const MonthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July
  const Advice = [{symbol:smileys1, Text:'Good for Buying'}, {symbol:smileys2, Text:'Good for Selling'}]
  const HomeScreen = () => {
      console.disableYellowBox = true;
+     console.log('check')
      const [topMenu, setTopMenu] = React.useState([{icon:'Contact', active:false, width:25, color: 'rgba(53,150,178,0.251)' }, {icon:'Analysis', active:false, width:70, color: 'rgba(53,150,178,1)' }, {icon:'FAQ', active:false, width:25, color: 'rgba(53,150,178,0.251)' }])
      const [advice, setAdvice] = React.useState (Advice[1])
      const [month, setMonth] = React.useState (MonthName[0])
@@ -24,15 +25,27 @@ const MonthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July
          if (!firebase.apps.length)
          {
              firebase.initializeApp(firebaseConfig)
-             firebase.database().ref('/').once('value').then(function(snapshot){
-                console.log(snapshot.val())
-            })
+           
         }
          
     
     }, [])
     React.useEffect(()=> {
         setMonth(MonthName[new Date().getMonth()])
+        firebase.database().ref('/').once('value').then(function(snapshot){
+            //console.log(snapshot.val())
+            var date = new Date();
+            var data = snapshot.val();
+           // console.log('loaded==', data[1])
+            //console.log('data==', data)
+            if (data[date.getMonth()]!='buy') {
+                setAdvice(Advice[1])
+                
+            } else {
+                setAdvice(Advice[0])
+                
+            }
+        })
    }, [advice]) 
    const getBitCoinPrice= async() => {
        var price = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json')

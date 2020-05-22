@@ -1,10 +1,10 @@
 export const firebaseConfig = {
-    apiKey: "AIzaSyCmydi-tlkZnFyT-BVF8QwNMhW8HkEWAE0",
-    authDomain: "univiz.firebaseapp.com",
-    databaseURL: "https://univiz.firebaseio.com",
-    projectId: "univiz",
-    storageBucket: "univiz.appspot.com",
-    messagingSenderId: "982900907406",
-    appId: "1:982900907406:web:a7cc382058d0b831da98df"
+  apiKey: "AIzaSyAhXeRJlUg1-ZqpGjsS9tvB8p9qHg60Sww",
+  authDomain: "bitpredictor.firebaseapp.com",
+  databaseURL: "https://bitpredictor.firebaseio.com",
+  projectId: "bitpredictor",
+  storageBucket: "bitpredictor.appspot.com",
+  messagingSenderId: "1012342448175",
+  appId: "1:1012342448175:web:1025b63437b6d51b32a6da"
   };
   
