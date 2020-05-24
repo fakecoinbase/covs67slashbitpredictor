@@ -1,7 +1,7 @@
 import React from 'react';
 import {G,Path,Circle,Rect,Polygon,Defs,LinearGradient,Stop} from "react-native-svg";
 
-
+//Setting SVG style properties
 export default svgs = {
     Analysis: {
         svg:<Path d="M54.32 0.91C51.72 0.3 49.11 1.93 48.51 

@@ -1,3 +1,4 @@
+//Firebase configuration properties
 export const firebaseConfig = {
   apiKey: "AIzaSyAhXeRJlUg1-ZqpGjsS9tvB8p9qHg60Sww",
   authDomain: "bitpredictor.firebaseapp.com",

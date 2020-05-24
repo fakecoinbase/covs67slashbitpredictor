@@ -5,11 +5,11 @@
  * @format
  * @flow strict-local
  */
-
+//importing necessary libraries
 import React from 'react';
 
 import HomeScreen from './screens/HomeScreen/HomeScreen';
-
+//loading homescreen
 const App: () => React$Node = () => {
   return (
     <HomeScreen/>

@@ -1,3 +1,4 @@
+//importing required files
 import React from 'react';
 import {StyleSheet,View,Text,Image,ImageBackground,Dimensions,TouchableOpacity} from "react-native";
 import Icon from './resources/SvgIcons/Icon';
@@ -9,18 +10,24 @@ import {firebaseConfig} from './firebase/FirebaseConfig';
 import * as firebase from 'firebase'; 
 import SplashScreen from 'react-native-splash-screen';
 
-const {height, width} = Dimensions.get('window');
+//getting screen height and width
+const {height, width} = Dimensions.get('window'); 
+//creating an array for months
 const MonthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
  'August', 'September', 'October', 'November', 'December']
+ //creating an array for advice
  const Advice = [{symbol:smileys1, Text:'Good for Buying'}, {symbol:smileys2, Text:'Good for Selling'}]
+ //component for homescreen
  const HomeScreen = () => {
      console.disableYellowBox = true;
      console.log('check')
      const [topMenu, setTopMenu] = React.useState([{icon:'Contact', active:false, width:25, color: 'rgba(53,150,178,0.251)' }, {icon:'Analysis', active:false, width:70, color: 'rgba(53,150,178,1)' }, {icon:'FAQ', active:false, width:25, color: 'rgba(53,150,178,0.251)' }])
+     //setting initial values for advice, month and price
      const [advice, setAdvice] = React.useState (Advice[1])
      const [month, setMonth] = React.useState (MonthName[0])
      const [currentPrice, setCurrentPrice] = React.useState(0)
      //React.useEffect(()=> setTimeout(()=> {SplashScreen.hide()}, 1000 ) )
+     //initializing firebase
      React.useEffect(()=> {
          if (!firebase.apps.length)
          {
@@ -31,13 +38,16 @@ const MonthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July
     
     }, [])
     React.useEffect(()=> {
+        //setting current month
         setMonth(MonthName[new Date().getMonth()])
+        //getting firebase data
         firebase.database().ref('/').once('value').then(function(snapshot){
             //console.log(snapshot.val())
             var date = new Date();
             var data = snapshot.val();
            // console.log('loaded==', data[1])
             //console.log('data==', data)
+            //Set advice based on the results received from firebase
             if (data[date.getMonth()]!='buy') {
                 setAdvice(Advice[1])
                 
@@ -47,6 +57,7 @@ const MonthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July
             }
         })
    }, [advice]) 
+   //getting bitcoin current price
    const getBitCoinPrice= async() => {
        var price = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json')
        price = await price.json()
@@ -59,11 +70,13 @@ const MonthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July
 }) 
 return (
     <ImageBackground source={bg} style = {styles.container}>
+        {/* setting statusBarColor to transparent */}
         <GeneralStatusBarColor backgroundColor = {'transparent'}
         barStyle="dark-content"
         />
+        {/* creating top menu bar */}
         <View style = {styles.row}>
-            {
+            { 
                 topMenu.map((element,index)=>(
                     <TouchableOpacity key={index}>
                         <Icon name={element.icon} 
@@ -76,15 +89,20 @@ return (
             }
             </View> 
         <View style = {{...styles.row, marginTop: height*0.035}}>
+            {/* View for analysis */}
             <Text style={styles.title}> Analysis </Text>
             
             </View>
+            {/* View for currentPrice */}
             <View style = {{...styles.row, flexDirection:'column'}}>
             <Text style={styles.title}> Current Price </Text>
             <Text style={styles.priceTxt}>{'~£'+currentPrice}</Text>
             </View>
+            {/* View for Advice */}
             <View style = {styles.footer}>
+                {/* Image for Advice */}
                 <Image source={advice.symbol} style={styles.smileysStyles} />
+                {/* Text for advice */}
             <Text style={styles.adviceTxt}> {advice.Text} </Text>
             <View style = {styles.monthContainer}>
             <Text style={styles.monthTxt}> {month} </Text>
@@ -95,6 +113,7 @@ return (
     </ImageBackground>
 )
  }
+ //styles for homescreen
 const styles = StyleSheet.create({
     container:{
         flex:1, 
